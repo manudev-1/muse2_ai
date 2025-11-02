@@ -9,11 +9,6 @@
 **Muse2_ai** is an experimental project that explores the intersection between **neuroscience and artificial intelligence**.
 The goal is to capture real-time EEG (electroencephalography) data from the **Muse 2 headband**, process the signals, and train an AI model capable of **visualizing what a person perceives or imagines** — effectively turning brain activity into visual representations.
 
-This project is divided into two main phases:
-
-1. **Perception** – mapping EEG data recorded while viewing images.
-2. **Imagination** – mapping EEG data recorded while imagining those same images.
-
 The long-term objective is to train a generative model that can recreate **mental imagery** directly from EEG input.
 
 ---
