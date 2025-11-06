@@ -12,6 +12,7 @@ setup(
       'console_scripts': [
             #! "cmd=module.file:start_function"
             "test_eeg=console.testing:main",
+            "trainer=console.trainer:main",
       ]  
     },
     
