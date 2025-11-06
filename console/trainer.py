@@ -7,8 +7,6 @@ from trainer.Visualizer import Visualizer
 def main():
     root = Tk()
     app = Visualizer(root)
-    with open("trainer/config.json", "w+") as f:
-        json.dump(app.list, f)
 
     if os.path.isfile(app.list[0]):
             app.show_image(app.list[0])
