@@ -1,7 +1,8 @@
-from tkinter import Text, Label, ttk
+from tkinter import Label, ttk
 from PIL import Image, ImageTk
 import os
 from random import shuffle
+import json
 
 class Visualizer:
     def __init__(self, root):
@@ -27,6 +28,7 @@ class Visualizer:
         self.__build_control_panel()
         self.list = self.__list_determination()
 
+    # ! Public Methods !
     def clear_left_frame(self):
         """Clear the content of the left frame
         """
@@ -103,6 +105,7 @@ class Visualizer:
         lbl.image = photo
         lbl.pack(expand=True)
 
+    # ! Private Methods !
     def __build_control_panel(self):
         ttk.Label(self.right_frame, text="Contol Panel", font=("Arial", 20)).pack(pady=10)
         ttk.Button(self.right_frame, text="Show Next", command=self.show_next).pack(fill="x", pady=5)
@@ -110,6 +113,9 @@ class Visualizer:
 
     def __list_determination(self) -> list:
 
+        loaded_list = self.__load_list()
+        if loaded_list is not None:
+            return loaded_list
 
         based_path = os.path.join(".", "trainer", "images")
         dict_list = {}
@@ -132,4 +138,17 @@ class Visualizer:
                 list_imgs[i] = dict_list[img_name]
 
         shuffle(list_imgs)
+
+        self.__save_list(list_imgs)
+
         return list_imgs
+
+    def __save_list(self, list_to_save: list):
+        with open('trainer/list.json', 'w') as f:
+            json.dump(list_to_save, f, indent=4)
+
+    def __load_list(self) -> list | None:
+        if os.path.isfile('trainer/list.json'):
+            with open('trainer/list.json', 'r') as f:
+                return json.load(f)
+        return None
