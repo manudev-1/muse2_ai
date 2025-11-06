@@ -1,5 +1,5 @@
 from scipy.signal import butter, lfilter, iirnotch, filtfilt
-from numpy import trapezoid, ndarray, max as np_max, abs as np_abs
+from numpy import ndarray, max as np_max, abs as np_abs
 
 class Filter:
 
