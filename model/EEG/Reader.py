@@ -18,7 +18,7 @@ class Reader:
         sample, timestamp = self.inlet.pull_sample()
         return sample, timestamp
     
-    def raw_to_psd(self, seconds: int = 2):
+    def raw_to_psd(self, seconds: int = 2) -> tuple[dict, dict] | None:
         n_samples = self.fs * seconds
         channels_data = {ch: [] for ch in ['TP9', 'AF7', 'AF8', 'TP10']}
 
@@ -44,4 +44,4 @@ class Reader:
 
             result[ch_name] = Band.compute_bandpower(freqs, psd)
 
-        return result
+        return result, channels_data

@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import time
 from collections import deque
 
-from model.EEGReader import EEGReader
+from model.EEG.Reader import Reader
 
 def main():
-    reader = EEGReader()
+    reader = Reader()
     print("✅ EEG stream found. Starting live plot...")
 
     channels = ['TP9', 'AF7', 'AF8', 'TP10']
