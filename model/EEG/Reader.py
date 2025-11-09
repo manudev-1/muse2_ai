@@ -4,6 +4,7 @@ from scipy.signal import welch
 
 from model.EEG.Filter import Filter
 from model.EEG.Band import Band
+from log.__print import print
 
 class Reader:
     def __init__(self, fs: int = 256):
@@ -26,6 +27,7 @@ class Reader:
             sample, _ = self.read_sample()
             for ch_name, value in zip(channels_data.keys(), sample):
                 channels_data[ch_name].append(value)
+        print("Channel data has been loaded")
 
         for ch_name in channels_data:
             channels_data[ch_name] = array(channels_data[ch_name])
@@ -33,6 +35,7 @@ class Reader:
         result = {}
         for ch_name, data in channels_data.items():
             if not Filter.is_clean(data):
+                print("Channel data was unclear")
                 return None
 
         for ch_name, data in channels_data.items():
@@ -43,5 +46,7 @@ class Reader:
             freqs, psd = welch(filtered, fs=self.fs, nperseg=256)
 
             result[ch_name] = Band.compute_bandpower(freqs, psd)
+            
+            print("Clear channel data has been found")
 
         return result, channels_data

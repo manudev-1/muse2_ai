@@ -1,5 +1,24 @@
 import logging
+import sys
 
-logger = logging.getLogger(__name__)
+def setup_logger(app_name: str = "trainer"):
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
 
-logging.basicConfig(level=logging.DEBUG, format="[%(asctime)s] [%(levelname)s] %(name)s : %(message)s (%(filename)s:%(lineno)d)", datefmt='%Y-%m-%d %H:%M:%S')
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
+    formatter = logging.Formatter(
+        "[%(asctime)s] [%(levelname)s] %(name)s : %(message)s (%(filename)s:%(lineno)d)",
+        "%Y-%m-%d %H:%M:%S"
+    )
+
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
+    logger.name = app_name
+
+    return logger
+
+logger = setup_logger()

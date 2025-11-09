@@ -3,14 +3,6 @@ from numpy import ndarray, max as np_max, abs as np_abs
 
 class Filter:
 
-    bands = {
-        'Delta': (0.5, 4),
-        'Theta': (4, 8),
-        'Alpha': (8, 12),
-        'Beta': (12, 30),
-        'Gamma': (30, 50)
-    }
-
     @staticmethod
     def bandpass_filter(data: list, low: int, high: int, fs:int, order=5):
         """Bandpass filter for EEG data.
