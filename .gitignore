@@ -1,5 +1,6 @@
 env/*
 __pycache__/*
-build/
-Muse2_ai.egg-info/
-dataset/
+Muse2_ai.egg-info/*
+build/*
+*.pyc
+dataset/*
