@@ -1,8 +1,14 @@
 from numpy import ndarray, trapezoid
 
-from model.EEG.Filter import Filter
-
 class Band:
+    
+    bands = {
+        'Delta': (0.5, 4),
+        'Theta': (4, 8),
+        'Alpha': (8, 12),
+        'Beta': (12, 30),
+        'Gamma': (30, 50)
+    }
 
     @staticmethod
     def compute_bandpower(freqs: ndarray, psd: ndarray) -> float:
@@ -18,7 +24,7 @@ class Band:
             float: total power in the frequency band
         """
         powers = {}
-        for name, (low, high) in Filter.bands.items():
+        for name, (low, high) in Band.bands.items():
             mask = (freqs >= low) & (freqs <= high)
             powers[name] = float(trapezoid(psd[mask], freqs[mask]))
         return powers
