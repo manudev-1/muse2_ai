@@ -2,7 +2,7 @@ import logging
 import sys
 
 def setup_logger(app_name: str = "trainer"):
-    logger = logging.getLogger()
+    logger = logging.getLogger(app_name)
     logger.setLevel(logging.DEBUG)
 
     if logger.hasHandlers():
@@ -16,8 +16,6 @@ def setup_logger(app_name: str = "trainer"):
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
-
-    logger.name = app_name
 
     return logger
 
