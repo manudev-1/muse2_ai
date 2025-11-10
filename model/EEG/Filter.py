@@ -4,11 +4,11 @@ from numpy import ndarray, max as np_max, abs as np_abs
 class Filter:
 
     @staticmethod
-    def bandpass_filter(data: list, low: int, high: int, fs:int, order=5):
+    def bandpass_filter(data: ndarray, low: int, high: int, fs:int, order=5):
         """Bandpass filter for EEG data.
 
         Args:
-            data (list): EEG Raw data.
+            data (ndarray): EEG Raw data.
             low (int): Lower cutoff frequency.
             high (int): Higher cutoff frequency.
             fs (int): Sampling frequency.
