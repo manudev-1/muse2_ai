@@ -11,7 +11,7 @@ class Band:
     }
 
     @staticmethod
-    def compute_bandpower(freqs: ndarray, psd: ndarray) -> float:
+    def compute_bandpower(freqs: ndarray, psd: ndarray) -> dict:
         """Calculate the average power of the signal in a specific frequency band.
 
         Args:

@@ -51,7 +51,7 @@ class Visualizer:
             self.debug_label.config(text=f"Starting in {3 - i}...")
             self.root.update()
             time.sleep(1)
-        self.debug_label.config(text=f"Recording...")
+        self.debug_label.config(text="Recording...")
         Thread(target=self.__main_loop, daemon=True).start()
 
     def exit(self):
@@ -223,7 +223,7 @@ class Visualizer:
             print(f"Trial {i}")
             self.__show_next()
 
-            self.debug_label.config(text=f"Recording...")
+            self.debug_label.config(text="Recording...")
             self.root.update_idletasks()
 
             self.__clear()

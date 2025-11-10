@@ -43,7 +43,8 @@ class Register:
         print("Valid PSD Data has been recorded")
         
         self.image_name = image_name
-        block = {
+            
+        return {
             "timestamp_start": start_ts,
             "timestamp_end": end_ts,
             "phase": phase,
@@ -51,8 +52,6 @@ class Register:
             "raw": {ch: data.tolist() for ch, data in channels_data.items()},
             "psd": psd_data
         }
-            
-        return block
     
     def save(self, block: dict):
         """Save the recorded data to a JSON file

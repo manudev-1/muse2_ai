@@ -1,5 +1,5 @@
 from pylsl import StreamInlet, resolve_streams
-from numpy import array
+from numpy import array, ndarray
 from scipy.signal import welch
 
 from model.EEG.Filter import Filter
@@ -33,13 +33,13 @@ class Reader:
             channels_data[ch_name] = array(channels_data[ch_name])
 
         result = {}
-        for ch_name, data in channels_data.items():
+        for data in channels_data.values():
             if not Filter.is_clean(data):
                 print("Channel data was unclear")
                 return None
 
         for ch_name, data in channels_data.items():
-            filtered = Filter.bandpass_filter(data, low=1, high=50, fs=self.fs, order=5)
+            filtered = Filter.bandpass_filter(ndarray(data), low=1, high=50, fs=self.fs, order=5)
 
             filtered = Filter.notch_filter(filtered, fs=self.fs, f0=50.0, Q=30.0)
 
