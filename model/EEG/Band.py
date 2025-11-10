@@ -17,11 +17,9 @@ class Band:
         Args:
             freqs (ndarray): frequencies correspondents to the psd
             psd (ndarray): density power spectrum of the signal
-            low (float): lower bound frequency
-            high (float): higher bound frequency
 
         Returns:
-            float: total power in the frequency band
+            dict: total power in the frequency band
         """
         powers = {}
         for name, (low, high) in Band.bands.items():
