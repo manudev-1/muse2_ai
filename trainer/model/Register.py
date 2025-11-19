@@ -56,7 +56,7 @@ class Register:
     def save(self, block: dict):
         """Save the recorded data to a JSON file
         """
-        path = os.path.join(self.output_path, f"session_{self.session_id}_{os.path.basename(self.image_name).split('.')[0]}.json")
+        path = os.path.join(self.output_path, f"session_{block.get('timestamp_start', '')}_{os.path.basename(self.image_name).split('.')[0]}.json")
         with open(path, 'w') as f:
             json.dump(block, f, indent=4)
         print("Block has been saved")
