@@ -1,5 +1,5 @@
 from pylsl import StreamInlet, resolve_streams
-from numpy import array, ndarray
+from numpy import array, array
 from scipy.signal import welch
 
 from model.EEG.Filter import Filter
@@ -39,7 +39,7 @@ class Reader:
                 return None
 
         for ch_name, data in channels_data.items():
-            filtered = Filter.bandpass_filter(ndarray(data), low=1, high=50, fs=self.fs, order=5)
+            filtered = Filter.bandpass_filter(array(data), low=1, high=50, fs=self.fs, order=5)
 
             filtered = Filter.notch_filter(filtered, fs=self.fs, f0=50.0, Q=30.0)
 

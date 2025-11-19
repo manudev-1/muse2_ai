@@ -223,7 +223,7 @@ class Visualizer:
             print(f"Trial {i}")
             self.__show_next()
 
-            self.debug_label.config(text="Recording...")
+            self.debug_label.config(text=f"Recording {i + 1}...")
             self.root.update_idletasks()
 
             self.__clear()
