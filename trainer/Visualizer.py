@@ -219,7 +219,7 @@ class Visualizer:
         self.text_label.config(text="")
            
     def __main_loop(self):
-        for i in range(400):
+        for i in range(100):
             print(f"Trial {i}")
             self.__show_next()
 
