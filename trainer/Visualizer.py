@@ -8,6 +8,7 @@ from threading import Thread
 from typing import Literal
 
 from .model.Register import Register
+from log.__print import print
 
 class Visualizer:
     def __init__(self, root: Tk, recorder: Register):
@@ -45,11 +46,12 @@ class Visualizer:
     def set_ready(self):
         """Set the application to ready state
         """
+        print("Ready to create dataset")
         for i in range(3):
             self.debug_label.config(text=f"Starting in {3 - i}...")
             self.root.update()
             time.sleep(1)
-        self.debug_label.config(text=f"Recording...")
+        self.debug_label.config(text="Recording...")
         Thread(target=self.__main_loop, daemon=True).start()
 
     def exit(self):
@@ -57,6 +59,7 @@ class Visualizer:
         """
         self.__save_list(self.list)
         self.root.destroy()
+        print("Trainer window has been closed")
         
     # ! Private Methods !
     def __build_control_panel(self):
@@ -64,11 +67,13 @@ class Visualizer:
         ttk.Label(self.right_frame, text="Contol Panel", font=("Arial", 20)).pack(pady=10)
         ttk.Button(self.right_frame, text="Ready", command=self.set_ready).pack(fill="x", pady=5)
         ttk.Button(self.right_frame, text="Exit", command=self.exit).pack(fill="x", pady=20)
+        print("Control panel has been created")
 
     def __list_determination(self) -> list:
         """If list order doesnt exist create it, otherwise it is returned"""
         loaded_list = self.__load_list()
         if loaded_list is not None:
+            print("Training list found")
             return loaded_list
 
         based_path = os.path.join(".", "trainer", "images")
@@ -95,6 +100,7 @@ class Visualizer:
 
         self.__save_list(list_imgs)
 
+        print("Training list created")
         return list_imgs
 
     def __save_list(self, list_to_save: list):
@@ -105,12 +111,14 @@ class Visualizer:
         """
         with open('trainer/list.json', 'w') as f:
             json.dump(list_to_save, f, indent=4)
+        print("Training list has been saved")
 
     def __load_list(self) -> list | None:
         """If exist, load the list"""
         if os.path.isfile('trainer/list.json'):
             with open('trainer/list.json', 'r') as f:
                 return json.load(f)
+        print("Training list not found")
         return None
     
     def __save_block(self, phase: Literal['imagination', 'perception'], image_name: str | None = None):
@@ -122,6 +130,7 @@ class Visualizer:
         """
         block = self.recorder.record_block(phase=phase, image_name=image_name)
         self.recorder.save(block)
+        print("Recorded block has been saved")
     
     def __show_next(self):
         """Show next image or text from the list
@@ -131,7 +140,7 @@ class Visualizer:
             return False
         phase = ''
 
-        next_item = self.list.pop(0)
+        next_item = self.list[0]
         if os.path.isfile(next_item):
             self.__show_image(next_item)
             phase = 'perception'
@@ -146,6 +155,7 @@ class Visualizer:
         thread = Thread(target=self.__save_block, kwargs={"phase":phase, "image_name":name})
         thread.start()
         thread.join()
+        self.list.pop(0)
         return True
 
     def __show_text(self, text: str):
@@ -209,10 +219,11 @@ class Visualizer:
         self.text_label.config(text="")
            
     def __main_loop(self):
-        for i in range(400):
+        for i in range(100):
+            print(f"Trial {i}")
             self.__show_next()
 
-            self.debug_label.config(text=f"Recording...")
+            self.debug_label.config(text=f"Recording {i + 1}...")
             self.root.update_idletasks()
 
             self.__clear()
