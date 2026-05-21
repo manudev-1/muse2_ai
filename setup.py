@@ -15,6 +15,7 @@ setup(
             "trainer=console.trainer:main",
             "eeg_encoder=console.eeg_encoder:main",
             "latent_mapper=console.latent_mapper:main",
+            "image_decoder=console.image_decoder:main"
       ]  
     },
     
