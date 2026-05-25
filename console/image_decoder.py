@@ -26,8 +26,9 @@ def main():
     z_eeg = eeg_encoder(x_eeg)
     print(z_eeg.shape)
     z_img = mapper(z_eeg)
-    print(z_img.shape)
-    image = image_decoder(z_img)
+    z_img_mean = z_img.mean(dim=0, keepdim=True)
+    print(z_img_mean.shape)
+    image = image_decoder(z_img_mean)
     print(image.shape)
 
     show_image(image[0])
