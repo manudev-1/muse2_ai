@@ -21,10 +21,15 @@ class EEGImageDataset(Dataset):
 
         self.image_index = {}
 
-        image_paths = glob.glob(
-            os.path.join(image_root, "**", "*.jpg"),
-            recursive=True
-        )
+        image_paths = []
+
+        for ext in ("*.jpg", "*.jpeg", "*.png"):
+            image_paths.extend(
+                glob.glob(
+                    os.path.join(image_root, "**", ext),
+                    recursive=True
+                )
+            )
 
         for path in image_paths:
 
@@ -51,20 +56,13 @@ class EEGImageDataset(Dataset):
         return len(self.files)
 
     def _load_eeg(self, raw):
-
         channels = ["TP9", "AF7", "AF8", "TP10"]
 
-        eeg = []
+        eeg = np.stack([raw[ch] for ch in channels])
 
-        for ch in channels:
-            eeg.append(raw[ch])
+        eeg = eeg[:, :512]
 
-        eeg = np.stack(eeg)
-
-        eeg = torch.tensor(
-            eeg,
-            dtype=torch.float32
-        )
+        eeg = torch.tensor(eeg, dtype=torch.float32)
 
         eeg = (
             eeg - eeg.mean(dim=1, keepdim=True)

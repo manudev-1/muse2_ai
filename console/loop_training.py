@@ -44,7 +44,7 @@ def train():
 
     loader = DataLoader(
         dataset,
-        batch_size=4,      # piccolo batch per PC meno potenti
+        batch_size=8,
         shuffle=True,
         num_workers=0
     )
