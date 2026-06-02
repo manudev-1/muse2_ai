@@ -13,6 +13,10 @@ setup(
             #! "cmd=module.file:start_function"
             "test_eeg=console.testing:main",
             "trainer=console.trainer:main",
+            "eeg_encoder=console.eeg_encoder:main",
+            "latent_mapper=console.latent_mapper:main",
+            "image_decoder=console.image_decoder:main",
+            "loop_training=console.loop_training:train"
       ]  
     },
     

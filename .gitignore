@@ -4,4 +4,5 @@ Muse2_ai.egg-info/*
 build/*
 *.pyc
 dataset/*
+*.pt
 list.json
