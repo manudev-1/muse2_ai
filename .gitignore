@@ -5,3 +5,4 @@ build/*
 *.pyc
 dataset/*
 list.json
+*.pt
